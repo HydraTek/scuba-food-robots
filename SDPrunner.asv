@@ -1,0 +1,22 @@
+clc
+clear
+
+%%
+
+%start game
+%game_run = input('To begin playing enter 1 into the command window: ');
+scene = simpleGameEngine('retro_pack.png',16,16,5,[121,22,22]);
+
+%set up variables for sprites
+blank=1;
+character=20;
+
+%set up landscape(land) and foreground(fg
+land=zeros(16);
+land(:)=blank;
+fg=zeros(16);
+fg(:)=blank;
+fg(6)=character;
+
+drawScene(scene, land, fg);
+

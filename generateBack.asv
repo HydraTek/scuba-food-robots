@@ -1,0 +1,26 @@
+%generate the back layer of the scene based on the area number
+function bNew = generateBack(b,area,house)
+   if area==1
+    bNew=b;
+    bNew(2:4,1:3)=house;
+   end
+    
+
+%{
+   if area==1
+       
+   end
+   if area==2
+       
+   end
+   if area==3
+       
+   end
+   if area==4
+       
+   end
+   if area==5
+       
+   end
+   %}
+end

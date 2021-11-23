@@ -9,26 +9,29 @@ scene = simpleGameEngine('retro_pack.png',16,16,5,[121,22,22]);
 
 %set up variables for sprites
 blank=1;
-character=30;
+character=243;
 house=[491:493;523:525];
-enemy=28;
+tree=33;
 
 %set up the area variable and blank landscape(land) and foreground (fg) 
 area=0;
-land=zeros(16);
-land(:)=blank;
-fg=zeros(16);
-fg(:)=blank;
-fg(128)=character;
+motion=0;
+back=zeros(16); %changing this size will change the size of the plane, just change front accordingly to the same dimensions
+back(:)=blank;
+front=zeros(16);
+front(:)=blank;
+front(128)=character;
 
 %initialize first sceen
 area=1;
-%fg=generateArea(fg,enemy);
-drawScene(scene, generateArea(land,fg,enemy));
-%runGame(scene,game_run,fg,character,blank,enemy);
+back=generateBack(back,area,house);
+%front=generateFront(front,area);
+interactive=generateInt(back,area);
+drawScene(scene,back,front);
+runGame(scene,game_run,back,front,character,blank);
 
 %run game
-function runGame(sc,gr,f,char,bnk,e)
+function runGame(sc,gr,b,f,char,bnk)
     while gr==1
         %allow player to move via the arrow keys and then update scene to new
         %character position
@@ -46,13 +49,21 @@ function runGame(sc,gr,f,char,bnk,e)
         if isequal(input,'downarrow')
             newPosition=currentPosition+1;
         end
-        f(currentPosition)=bnk;
-        f(newPosition)=char;
-        drawScene(sc, generateArea(f,e));
+        
+        %allow character to activate interactable objects
+        if isequal(input,'space')
+            
+        end
+        
+        %prevent character from walking through background objects
+        if b(newPosition)==bnk
+            f(currentPosition)=bnk;
+            f(newPosition)=char;
+            drawScene(sc, b, f);
+        else
+            newPosition=currentPosition;
+            drawScene(sc, b, f);
+        end
     end
 end
-
-  
-
-
 

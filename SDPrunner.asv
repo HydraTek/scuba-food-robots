@@ -4,19 +4,55 @@ clear
 %%
 
 %start game
-%game_run = input('To begin playing enter 1 into the command window: ');
+game_run = input('To begin playing enter 1 into the command window: ');
 scene = simpleGameEngine('retro_pack.png',16,16,5,[121,22,22]);
 
 %set up variables for sprites
 blank=1;
-character=20;
+character=30;
+house=[491:493;523:525];
+enemy=28;
 
-%set up landscape(land) and foreground(fg
+%set up the area variable and blank landscape(land) and foreground (fg) 
+area=0;
 land=zeros(16);
 land(:)=blank;
 fg=zeros(16);
 fg(:)=blank;
-fg(6)=character;
+fg(128)=character;
 
+%initialize first sceen
+area=1;
+generateArea(fg,enemy);
 drawScene(scene, land, fg);
+runGame(scene
+
+%run game
+function runGame(sc,gr,fg,l,char)
+    while gr==1
+        %allow player to move via the arrow keys and then update scene to new
+        %character position
+        input=getKeyboardInput(sc);
+        currentPosition=find(fg==character);
+        if isequal(input,'rightarrow')
+            newPosition=currentPosition+16;
+        end
+        if isequal(input,'leftarrow')
+            newPosition=currentPosition-16;
+        end
+        if isequal(input,'uparrow')
+            newPosition=currentPosition-1;
+        end
+        if isequal(input,'downarrow')
+            newPosition=currentPosition+1;
+        end
+        fg(currentPosition)=blank;
+        fg(newPosition)=character;
+        drawScene(sc, l, fg);
+    end
+end
+
+  
+
+
 

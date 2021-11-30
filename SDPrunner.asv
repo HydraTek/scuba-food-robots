@@ -12,12 +12,14 @@ tree=33;
 
 %set up the area variable and blank landscape(land) and foreground (fg) 
 area=0;
-motion=0;
 back=zeros(16); %changing this size will change the size of the plane, just change front accordingly to the same dimensions
 back(:)=blank;
 front=zeros(16);
 front(:)=blank;
 front(128)=character;
+intspace=zeros(16);
+intspace(:)=false;
+inventory=(0:0:16);
 
 %start game
 game_run = input('To begin playing enter 1 into the command window: ');
@@ -54,8 +56,18 @@ function runGame(sc,gr,b,f,char,bnk)
             newPosition=currentPosition+1;
         end
         
-        %allow character to activate interactable objects
-       
+        %allow player to interact with the item inventory
+        %if isequal(input,'i')
+            
+        %end
+        
+        %allow player to activate interactable objects
+        if isequal(input,'space')
+            if is(currentPosition+1)==true||is(currentPosition+1)==true||is(currentPosition+1)==true||is(currentPosition+1)==true
+                activateObject();
+            end
+        end
+        
         %prevent character from walking through background objects
         if b(newPosition)==bnk
             f(currentPosition)=bnk;

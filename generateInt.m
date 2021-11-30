@@ -1,5 +1,4 @@
 function interactiveSpace = generateInt(b,area)
-   
    %{
    if area==1
    

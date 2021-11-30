@@ -1,10 +1,7 @@
 clc
 clear
 
-%%
-
-%start game
-game_run = input('To begin playing enter 1 into the command window: ');
+%initialize scene using simpleGameEngine
 scene = simpleGameEngine('retro_pack.png',16,16,5,[121,22,22]);
 
 %set up variables for sprites
@@ -15,18 +12,21 @@ tree=33;
 
 %set up the area variable and blank landscape(land) and foreground (fg) 
 area=0;
-motion=0;
 back=zeros(16); %changing this size will change the size of the plane, just change front accordingly to the same dimensions
 back(:)=blank;
 front=zeros(16);
 front(:)=blank;
 front(128)=character;
+inventory=(0:0:16);
+
+%start game
+game_run = input('To begin playing enter 1 into the command window: ');
 
 %initialize first sceen
 area=1;
 back=generateBack(back,area,house);
 %front=generateFront(front,area);
-interactive=generateInt(back,area);
+%interactive=generateInt(back,area);
 drawScene(scene,back,front);
 runGame(scene,game_run,back,front,character,blank);
 
@@ -34,25 +34,36 @@ runGame(scene,game_run,back,front,character,blank);
 function runGame(sc,gr,b,f,char,bnk)
     while gr==1
         %allow player to move via the arrow keys and then update scene to new
-        %character position
+        %character position and have character facing new direction
         input=getKeyboardInput(sc);
         currentPosition=find(f==char);
         if isequal(input,'rightarrow')
+            char=244;
             newPosition=currentPosition+16;
         end
         if isequal(input,'leftarrow')
+            char=245;
             newPosition=currentPosition-16;
         end
         if isequal(input,'uparrow')
+            char=246;
             newPosition=currentPosition-1;
         end
         if isequal(input,'downarrow')
+            char=247;
             newPosition=currentPosition+1;
         end
         
-        %allow character to activate interactable objects
-        if isequal(input,'space')
+        %allow player to interact with the item inventory
+        if isequal(input,'i')
             
+        end
+        
+        %allow player to activate interactable objects
+        if isequal(input,'space')
+            if currentPosition+1==interactiveSpace||currentPosition-1==interactiveSpace||currentPosition+16==interactiveSpace||currentPosition-16==interactiveSpace
+                activateObject();
+            end
         end
         
         %prevent character from walking through background objects

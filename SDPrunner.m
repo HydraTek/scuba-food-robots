@@ -7,8 +7,6 @@ scene = simpleGameEngine('retro_pack.png',16,16,5,[121,22,22]);
 %set up variables for sprites
 blank=1;
 character=243;
-house=[491:493;523:525];
-tree=33;
 
 %set up the area variable and blank landscape(land) and foreground (fg) 
 area=0;
@@ -17,6 +15,8 @@ back(:)=blank;
 front=zeros(16);
 front(:)=blank;
 front(128)=character;
+intspace=zeros(16);
+intspace(:)=false;
 inventory=(0:0:16);
 
 %start game
@@ -24,7 +24,7 @@ game_run = input('To begin playing enter 1 into the command window: ');
 
 %initialize first sceen
 area=1;
-back=generateBack(back,area,house);
+back=generateBack(back,area);
 %front=generateFront(front,area);
 %interactive=generateInt(back,area);
 drawScene(scene,back,front);
@@ -55,14 +55,23 @@ function runGame(sc,gr,b,f,char,bnk)
         end
         
         %allow player to interact with the item inventory
-        if isequal(input,'i')
+        %if isequal(input,'i')
             
-        end
+        %end
         
         %allow player to activate interactable objects
         if isequal(input,'space')
-            if currentPosition+1==interactiveSpace||currentPosition-1==interactiveSpace||currentPosition+16==interactiveSpace||currentPosition-16==interactiveSpace
-                activateObject();
+            if is(currentPosition+1)==true
+                activateObject(currentPosition+1);
+            end
+            if is(currentPosition-1)==true
+                activateObject(currentPosition-1);
+            end
+            if is(currentPosition+16)==true
+                activateObject(currentPosition+16);
+            end
+            if is(currentPosition-16)==true
+                activateObject(currentPosition-16);
             end
         end
         

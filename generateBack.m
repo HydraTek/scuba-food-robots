@@ -2,7 +2,7 @@
 function bNew = generateBack(b,area,house)
    if area==1
     bNew=b;
-    bNew(1:2,1:3)=house;
+    bNew(1:2,1:3)=[491:493;523:525]; %add house
    end
 %{
    if area==2
